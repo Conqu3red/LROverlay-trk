@@ -195,12 +195,14 @@ def Main():
     global trackData
     global track
 
-    print('''LROverlay V0.3
+    print('''LROverlay V0.3-trk
     Some features are highly experimental and may not function correctly.
     If you have any issues getting any of the modes to work, please feel
     free to contact me via Discord (@Ollie#1153)
 
     TRK file support implemented by Conqu3red (@Conqu3red#2054)
+    If you have any issues with broken trk files then please contact
+    me.
     
 ''')
     
