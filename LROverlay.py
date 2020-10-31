@@ -1,8 +1,20 @@
 import os, cv2, json, numpy
 from PIL import Image, ImageDraw
 import linedraw
+from vector_2d import Vector
 
-trackData={"label":"Generated with code written by OllieMBM","creator":"Ollie","description":"Powered by Python","duration":0,"version":"6.2","startPosition":{"x":-0,"y":0},"lines":[]}
+from load import *
+from write import *
+from track import *
+from lr_utils import *
+
+LineType = linetype()
+TrackFeatures = trackfeatures()
+TrackMetadata = trackmetadata()
+TriggerType = triggertype()
+
+track = Track()
+
 linecount=0
 
 def createLine(idno,x1,y1,x2,y2):
@@ -10,15 +22,7 @@ def createLine(idno,x1,y1,x2,y2):
     y1=y1*2
     x2=x2*2
     y2=y2*2
-    newLine={"id":idno,"type":2,"x1":int(x1),"y1":int(y1),"x2":int(x2),"y2":int(y2)}
-    trackData['lines'].append(newLine)
-
-def saveTrack(filename):
-    global trackData
-    with open(str(filename)+".json", "w") as track:
-        print("Writing to file...")
-        json.dump(trackData, track)
-        print("Saved to "+str(filename)+".json")
+    track.addLine(Line(LineType.Scenery, Vector(x1,y1), Vector(x2,y2) ) )
 
 def toLines(frame):
     print("Converting image to lines...")
@@ -189,11 +193,14 @@ def linemaker(group):
 
 def Main():
     global trackData
+    global track
 
     print('''LROverlay V0.3
     Some features are highly experimental and may not function correctly.
     If you have any issues getting any of the modes to work, please feel
     free to contact me via Discord (@Ollie#1153)
+
+    TRK file support implemented by Conqu3red (@Conqu3red#2054)
     
 ''')
     
@@ -208,16 +215,16 @@ def Main():
     if mode == "1":
         ditherImage(file)
         filename = file.split(".")[0]
-        saveTrack(filename)  
+        SaveTrack(track, filename)  
     elif mode == "2":
         contourImage(file)
         filename = file.split(".")[0]
-        saveTrack(filename)  
+        SaveTrack(track, filename)  
     elif mode == "3":
         ditherImage(file)
         contourImage(file)
         filename = file.split(".")[0]
-        saveTrack(filename)  
+        SaveTrack(track, filename)  
     elif mode == "4":
         if file.endswith(".mp4") or file.endswith(".gif"):
             animate(file)
