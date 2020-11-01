@@ -6,11 +6,6 @@ from track import *
 
 from lr_utils import *
 
-LineType = linetype()
-TrackFeatures = trackfeatures()
-TrackMetadata = trackmetadata()
-TriggerType = triggertype()
-
 
 linetriggers = []
 supported_features = [

@@ -4,10 +4,6 @@ byteorder = "little"
 
 from lr_utils import *
 
-LineType = linetype()
-TrackFeatures = trackfeatures()
-TrackMetadata = trackmetadata()
-TriggerType = triggertype()
 
 
 def GetTrackFeatures(trk):
